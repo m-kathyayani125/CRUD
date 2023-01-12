@@ -1,0 +1,92 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+body {
+  /* background-color: linear-gradient(to right, var(red), var(green)); */
+}
+.container {
+  /* width: 100rem; */
+  margin: auto;
+  /* background: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 0.8),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%); */
+  background-color: #ffe1e1;
+  /* box-shadow: ;
+   */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3rem;
+  font-size: 2rem;
+  color: rgb(0, 0, 0);
+  padding: 15px;
+  text-align: left;
+  /* margin: 10rem; */
+}
+th,
+td {
+}
+.tablecontainer {
+  margin: 10rem;
+}
+.searchAndCreate {
+  display: flex;
+}
+.searchbox {
+  font-size: 2rem;
+  padding: 2rem;
+  /* width: 50%; */
+  /* margin-left: auto; */
+}
+.icon {
+  /* margin-left: auto; */
+  background: #000;
+}
+.userid {
+  width: 10%;
+}
+.id {
+  width: 10%;
+}
+.title {
+  width: 70%;
+}
+.completed {
+  width: 10%;
+}
+.createUser {
+  padding: 2rem;
+  font-size: 2rem;
+  /* width: 50%; */
+  cursor: pointer;
+}
+.heading {
+  font-size: 4rem;
+  margin: 2rem;
+  color: rgb(3, 3, 3);
+}
+.sort-Ascending {
+  /* margin-left: auto; */
+  /* background-color: #fff; */
+  /* margin-left: 3rem; */
+}
