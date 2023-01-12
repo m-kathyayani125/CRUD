@@ -7,11 +7,14 @@ class App {
     this._loadData();
   }
   async _loadData() {
-    const kanta = await fetch("https://jsonplaceholder.typicode.com/todos");
-    let arr = await kanta.json();
-    arr = arr.slice(0, 10);
-    data = arr;
-    // this._setLocalStorage();
+    if (localStorage.data.length == 2) {
+      const kanta = await fetch("https://jsonplaceholder.typicode.com/todos");
+      let arr = await kanta.json();
+      arr = arr.slice(0, 10);
+      data = arr;
+      this._setLocalStorage();
+    }
+    data = JSON.parse(localStorage.data);
     this._getLocalStorage();
   }
   renderDelete(e) {
@@ -20,13 +23,7 @@ class App {
       return obj.id == idAttribute;
     });
     data.splice(object, 1);
-    console.log(data);
     this._renderUser(data);
-    const iconEvent = document.querySelectorAll(".iconDisplay");
-    iconEvent.forEach((i) =>
-      i.addEventListener("click", this.renderDelete.bind(this))
-    );
-    console.log(iconEvent);
     this._setLocalStorage();
   }
   edit(e) {
@@ -167,11 +164,11 @@ class App {
       }
       return 0;
     }
+
     data.sort(compare);
     app._renderUser(data);
   }
   _createUser(e) {
-    console.log("manikantareddy");
     const userHTML = `
         <tr class="heading-row">
             <th class="userid">
@@ -199,6 +196,19 @@ class App {
     completed.addEventListener("keydown", function (e) {
       console.log(e.key);
       if (e.key !== "Enter") return;
+      // const response = fetch("https://jsonplaceholder.typicode.com/todos", {
+      //   method: "POST",
+      //   body: JSON.stringify({
+      //     userId: 1,
+      //     id: 12,
+      //     title: "foo",
+      //     completed: "bar",
+      //   }),
+      //   headers: {
+      //     "Content-type": "application/json; charset=UTF-8",
+      //   },
+      // });
+      // console.log(response.status);
       newUser = {
         userId: userId.value,
         id: id.value,
@@ -215,8 +225,9 @@ class App {
   }
   _searchData(e) {
     let searchData = data;
+    const target = e.target.value;
     searchData = searchData.filter((user) =>
-      user.title.includes(e.target.value)
+      user.title.includes(target.toLowerCase())
     );
     app._renderUser(searchData);
   }
@@ -225,9 +236,10 @@ class App {
   }
   _getLocalStorage() {
     const todoData = JSON.parse(localStorage.getItem("data"));
-    if (!todoData) return;
+    if (!todoData) return null;
     data = todoData;
     this._renderUser(data);
+    return todoData;
   }
 }
 const app = new App();
