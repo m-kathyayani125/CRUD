@@ -11,7 +11,6 @@ class App {
     let arr = await kanta.json();
     arr = arr.slice(0, 10);
     data = arr;
-    console.log(data);
     // this._setLocalStorage();
     this._getLocalStorage();
   }
@@ -33,10 +32,14 @@ class App {
   edit(e) {
     const idAttribute = e.target.getAttribute("data-id");
     console.log(idAttribute);
-    const idx = data.findIndex((obj) => {
-      return obj.id == idAttribute;
+    let idx;
+    data.forEach((obj, i) => {
+      if (obj.id == idAttribute) {
+        idx = i;
+      }
     });
-    const titleData = document.querySelector(`.title-${idx + 1}`);
+    console.log(idx);
+    const titleData = document.querySelector(`.title-${idAttribute}`);
     console.log(titleData);
     titleData.innerHTML = "";
     const html = `
@@ -44,15 +47,14 @@ class App {
     titleData.insertAdjacentHTML("beforeend", html);
     editform = document.querySelector(".editform");
     editform.addEventListener("keydown", function (e) {
-      console.log(e);
       if (e.key !== "Enter") return;
-      mani.manikanta(idx);
+      app.manikanta(idx);
+      // titleData.innerHTML = editform.value;
     });
   }
   manikanta(idx) {
     data[idx].title = editform.value;
     console.log(data);
-    tablelist.innerHTML = "";
     this._renderUser(data);
     this._setLocalStorage();
   }
@@ -125,7 +127,7 @@ class App {
       return 0;
     }
     data.sort(compare);
-    mani._renderUser(data);
+    app._renderUser(data);
   }
   _titlesortDescending() {
     //   data=data.sort();
@@ -140,7 +142,7 @@ class App {
       return 0;
     }
     data.sort(compare);
-    mani._renderUser(data);
+    app._renderUser(data);
   }
   _idsortAscending() {
     function compare(a, b) {
@@ -153,7 +155,7 @@ class App {
       return 0;
     }
     data.sort(compare);
-    mani._renderUser(data);
+    app._renderUser(data);
   }
   _idsortDescending() {
     function compare(a, b) {
@@ -166,7 +168,7 @@ class App {
       return 0;
     }
     data.sort(compare);
-    mani._renderUser(data);
+    app._renderUser(data);
   }
   _createUser(e) {
     console.log("manikantareddy");
@@ -204,8 +206,8 @@ class App {
         completed: completed.value,
       };
       data.push(newUser);
-      mani._renderUser(data);
-      mani._setLocalStorage();
+      app._renderUser(data);
+      app._setLocalStorage();
       //   console.log(newUser);
       const createNew = document.querySelector(".createNewUser");
       createNew.innerHTML = "";
@@ -216,7 +218,7 @@ class App {
     searchData = searchData.filter((user) =>
       user.title.includes(e.target.value)
     );
-    mani._renderUser(searchData);
+    app._renderUser(searchData);
   }
   _setLocalStorage() {
     localStorage.setItem("data", JSON.stringify(data));
@@ -228,6 +230,6 @@ class App {
     this._renderUser(data);
   }
 }
-const mani = new App();
+const app = new App();
 
 // console.log(data);
