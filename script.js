@@ -7,14 +7,16 @@ class App {
     this._loadData();
   }
   async _loadData() {
-    if (localStorage.data.length == 2) {
+    // console.log(localStorage);
+    if (localStorage.data == null || localStorage.data.length == 2) {
       const kanta = await fetch("https://jsonplaceholder.typicode.com/todos");
       let arr = await kanta.json();
       arr = arr.slice(0, 10);
       data = arr;
       this._setLocalStorage();
+    } else {
+      data = JSON.parse(localStorage.data);
     }
-    data = JSON.parse(localStorage.data);
     this._getLocalStorage();
   }
   renderDelete(e) {
